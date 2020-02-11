@@ -19,7 +19,7 @@ tokens_nltk = nltk.word_tokenize(words)
 #print(tokens_nltk)
 
 #tokens con split
-tokens_py = words.split()
+#tokens_py = words.split()
 #print(tokens_py)
 
 #quitando stop words y signos de puntuacion
@@ -38,8 +38,9 @@ for word in tokens_nltk:
 
 #Rewrite de words in lowercase and sort
 vocabulary = [word.lower() for word in vocabulary]
-vocabulary.sort()
-#print(vocabulary)
+#vocabulary.sort()
+
+
 
 #dividiendo cadenas con simbolos intermedios
 sym = ["-","/","'","*","?","¿","!","¡",".",",",";",":","¦","#","&","%","$","(",")","=","_","[","]","{","}","~","+","—","\\"]
@@ -69,15 +70,30 @@ def erase_size(str,size):
 			aux.append(s)
 	return aux
 
-clean_vocabulary = []
+tokens_normalizados = []
 for word in vocabulary:
-	clean_vocabulary = clean_vocabulary + erase_size(erase_sym(word,sym+num),1)
+	tokens_normalizados = tokens_normalizados + erase_size(erase_sym(word,sym+num),1)
 
+sorted_vocabulary = sorted(set(tokens_normalizados))
+#print(len(sorted_vocabulary))
 
 #Guardando vocabulario en un archivo
-fv = open("clean_vocabulary.txt","w")
-for word in sorted(set(clean_vocabulary)):
-	fv.write(word + "\n")
-fv.close()
 
+'''fv = open("tokens_normalizados.txt","w")
+for word in tokens_normalizados:
+	fv.write(word + "\n")
+fv.close()'''
+
+#print(sorted_vocabulary[0:100])
+
+contexts = {}
+window = 8
+
+for i in range(len(tokens_normalizados)):
+	for j in range(i - int(window/2)):
+		try:
+			if j >= 0:
+				pass
+		except IndexError:
+			pass
 
